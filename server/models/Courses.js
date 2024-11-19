@@ -10,9 +10,9 @@ const CourseSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  instructor: {
+  instructor: { 
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "User", 
     required: true,
   },
   whatYouWillLearn: {
@@ -51,6 +51,14 @@ const CourseSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
+  instructions: {
+    type: [String],
+  },
+  status: {
+    type: String,
+    enum: ["Draft", "Published"],
+  },
+  createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("Course", CourseSchema);
