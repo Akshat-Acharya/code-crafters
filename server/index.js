@@ -21,12 +21,11 @@ database.connect();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: "http:localhost:3000",
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: 'http://localhost:3000', // Allow requests from frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+  credentials: true, // If cookies or authorization headers are used
+}));
 
 app.use(
   fileUpload({
