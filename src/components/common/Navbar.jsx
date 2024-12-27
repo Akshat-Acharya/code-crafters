@@ -91,7 +91,7 @@ const Navbar = () => {
                               ))
                             
                           ) : (<div></div>)
-                        }
+                        }   
 
                         </div>
 
@@ -110,7 +110,7 @@ const Navbar = () => {
           </ul>
         </nav>
 
-            {/* Login/SignUp/Dashboard */}
+            {/* Login/SignUp/Dashboard */}``
 
             <div className='flex gap-x-4 items-center'>
 
@@ -153,7 +153,7 @@ const Navbar = () => {
               {
                 token != null && <ProfileDropDown/>
               }
-              {/* samarth */}
+             
 
             </div>
 
