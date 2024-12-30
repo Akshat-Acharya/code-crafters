@@ -10,21 +10,22 @@ import LearningGrid from '../components/core/AboutPage/LearningGrid'
 
 const About = () => {
   return (
-    <div className='mt-[100px] text-white'>
+    <div >
         {/* section 1 */}
-        <section>
-            <div>
-                <header>
+        <section className="bg-richblack-700">
+            <div className="relative mx-auto flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-center text-white">
+                <header className="mx-auto py-20 text-4xl font-semibold lg:w-[70%]">
                 Driving Innovation in Online Education for a
                 <HighlightText text={"Brighter Future"} />
-                <p>
+                <p className="mx-auto mt-3 text-center text-base font-medium text-richblack-300 lg:w-[95%]">
                 Code Crafters is at the forefront of driving innovation in online
               education. We're passionate about creating a brighter future by
               offering cutting-edge courses, leveraging emerging technologies,
               and nurturing a vibrant learning community.
                 </p>
                 </header>
-                <div className='flex gap-x-3 mx-auto'>
+                <div className="sm:h-[70px] lg:h-[150px]"></div>
+                <div className="absolute bottom-0 left-[50%] grid w-[100%] translate-x-[-50%] translate-y-[30%] grid-cols-3 gap-3 lg:gap-5">
                     <img src={BannerImage1} loading='lazy'/>
                     <img src={BannerImage2} loading='lazy'/>
                     <img src={BannerImage3} loading='lazy'/>
@@ -33,9 +34,11 @@ const About = () => {
         </section>
 
         {/* section 2 */}
-        <section>
-            <div>
-                <Quote/>
+        <section className="border-b border-richblack-700">
+            <div className="mx-auto flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-richblack-500">
+               <div className='h-[100px]'> 
+            </div>
+            <Quote/>
             </div>
         </section>
 
