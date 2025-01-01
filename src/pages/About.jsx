@@ -7,6 +7,7 @@ import Quote from '../components/core/AboutPage/Quote'
 import FoundingImage from '../assets/Images/FoundingStory.png'
 import StatsComponent from '../components/core/AboutPage/StatsComponent'
 import LearningGrid from '../components/core/AboutPage/LearningGrid'
+import ContactFormSection from '../components/core/AboutPage/ContactFormSection'
 
 const About = () => {
   return (
@@ -19,7 +20,7 @@ const About = () => {
                 <HighlightText text={"Brighter Future"} />
                 <p className="mx-auto mt-3 text-center text-base font-medium text-richblack-300 lg:w-[95%]">
                 Code Crafters is at the forefront of driving innovation in online
-              education. We're passionate about creating a brighter future by
+              education. We're passionate about creating a brighter future by  
               offering cutting-edge courses, leveraging emerging technologies,
               and nurturing a vibrant learning community.
                 </p>
@@ -44,19 +45,19 @@ const About = () => {
 
         {/*section 3*/}
         <section>
-            <div className='flex flex-col'>
+            <div className="mx-auto flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-richblack-500">
             {/* Founding Story vala Div */}
-                <div className='flex'>
+                <div className="flex flex-col items-center gap-10 lg:flex-row justify-between">
                 {/* Founding Story left Box */}
-                    <div>
-                        <h1>Our Founding Story</h1>
-                        <p> Our e-learning platform was born out of a shared vision and
+                    <div className="my-24 flex lg:w-[50%] flex-col gap-10">
+                        <h1 className="bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#FCB045] bg-clip-text text-4xl font-semibold text-transparent lg:w-[70%] ">Our Founding Story</h1>
+                        <p className="text-base font-medium text-richblack-300 lg:w-[95%]"> Our e-learning platform was born out of a shared vision and
                 passion for transforming education. It all began with a group of
                 educators, technologists, and lifelong learners who recognized
                 the need for accessible, flexible, and high-quality learning
                 opportunities in a rapidly evolving digital world.</p>
                         
-                        <p>As experienced educators ourselves, we witnessed firsthand the
+                        <p className="text-base font-medium text-richblack-300 lg:w-[95%]">As experienced educators ourselves, we witnessed firsthand the
                 limitations and challenges of traditional education systems. We
                 believed that education should not be confined to the walls of a
                 classroom or restricted by geographical boundaries. We
@@ -66,15 +67,15 @@ const About = () => {
                     </div>
                    {/* Founding Story image box  */}
                     <div>
-                        <img src={FoundingImage}/>
+                        <img src={FoundingImage}  className="shadow-[0_0_20px_0] shadow-[#FC6767]"/>
                     </div>
                 </div>
                 {/* vision and mission vala parent div */}
-                <div className='flex'>
+                <div className="flex flex-col items-center lg:gap-10 lg:flex-row justify-between">
                     {/* left box */}
-                    <div>
-                        <h1>Our Vision</h1>
-                        <p>With this vision in mind, we set out on a journey to create an
+                    <div className="my-24 flex lg:w-[40%] flex-col gap-10">
+                        <h1 className="bg-gradient-to-b from-[#FF512F] to-[#F09819] bg-clip-text text-4xl font-semibold text-transparent lg:w-[70%] ">Our Vision</h1>
+                        <p className="text-base font-medium text-richblack-300 lg:w-[95%]">With this vision in mind, we set out on a journey to create an
                 e-learning platform that would revolutionize the way people
                 learn. Our team of dedicated experts worked tirelessly to
                 develop a robust and intuitive platform that combines
@@ -83,11 +84,11 @@ const About = () => {
                     </div>
 
                     {/* right box */}
-                    <div>
-                        <h1>
+                    <div className="my-24 flex lg:w-[40%] flex-col gap-10">
+                        <h1 className="bg-gradient-to-b from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] text-transparent bg-clip-text text-4xl font-semibold lg:w-[70%] ">
                             Our Mission
                         </h1>
-                        <p>
+                        <p className="text-base font-medium text-richblack-300 lg:w-[95%]">
                         Our mission goes beyond just delivering courses online. We wanted to create a vibrant community of learners, where individuals can connect, collaborate, and learn from one another. We believe that knowledge thrives in an environment of sharing and dialogue, and we foster this spirit of collaboration through forums, live sessions, and networking opportunities.
                         </p>
                     </div>
@@ -101,8 +102,9 @@ const About = () => {
     <StatsComponent/>
 
     {/* section 5 */}
-    <section>
+    <section className="mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-white" >
         <LearningGrid/>
+        <ContactFormSection/>
     </section>
 
 
