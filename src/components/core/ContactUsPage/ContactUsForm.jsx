@@ -18,7 +18,7 @@ const ContactUsForm = () => {
     // console.log("Form Data - ", data)
     try {
       setLoading(true)
-      const res = await apiConnector(
+      const res = await apiConnector( 
         "POST",
         contactusEndpoint.CONTACT_US_API,
         data
@@ -28,14 +28,14 @@ const ContactUsForm = () => {
     } catch (error) {
       console.log("ERROR MESSAGE - ", error.message)
       setLoading(false)
-    }
+    }              
   }
 
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset({
         email: "",
-        firstname: "",
+        firstname:   "",
         lastname: "",
         message: "",
         phoneNo: "",
