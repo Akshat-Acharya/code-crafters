@@ -8,6 +8,7 @@ import FoundingImage from '../assets/Images/FoundingStory.png'
 import StatsComponent from '../components/core/AboutPage/StatsComponent'
 import LearningGrid from '../components/core/AboutPage/LearningGrid'
 import ContactFormSection from '../components/core/AboutPage/ContactFormSection'
+import Footer from '../components/common/Footer'
 
 const About = () => {
   return (
@@ -107,6 +108,14 @@ const About = () => {
         <ContactFormSection/>
     </section>
 
+    <section>
+        <div>
+            Reviews from other learners
+        
+        </div>
+    </section>
+
+    <Footer/>
 
     </div>
   )
