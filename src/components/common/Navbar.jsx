@@ -110,7 +110,7 @@ const Navbar = () => {
           </ul>
         </nav>
 
-            {/* Login/SignUp/Dashboard */}``
+            {/* Login/SignUp/Dashboard */}
 
             <div className='flex gap-x-4 items-center'>
 
