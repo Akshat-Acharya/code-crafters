@@ -10,6 +10,10 @@ import UpdatePassword from "./pages/UpdatePassword";
 import VerifyEmail from "./pages/VerifyEmail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import MyProfile from "./components/core/dashboard/MyProfile";
+import Dashboard from "./pages/Dashboard";
+import PrivateRoute from "./components/core/Auth/PrivateRoute";
+import Error from './pages/Error'
 
 function App() {
   return (
@@ -17,6 +21,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="contact" element={<Contact />} />
         <Route
           path="/login"
           element={
@@ -49,7 +55,7 @@ function App() {
             </OpenRoute>
           }
         />
-         <Route
+        <Route
           path="verify-email"
           element={
             <OpenRoute>
@@ -57,29 +63,18 @@ function App() {
             </OpenRoute>
           }
         />
-         <Route
-          path="about"
-          element={
-            <OpenRoute>
-              <About />
-            </OpenRoute>
-          }
-        />
-        <Route
-          path="contact"
-          element={
-            <OpenRoute>
-              <Contact />
-            </OpenRoute>
-          }
-        />
-        <Route
-         path="dashboard/my-profile" 
-         element={<MyProfile/>} 
-        />
+  
+        <Route element={
+          <PrivateRoute>
+          <Dashboard />
+          </PrivateRoute> 
+          } >
+             <Route path="dashboard/my-profile" element={<MyProfile />} />
+          </Route>
+       
 
+        <Route path="*" element={<Error />} />
       </Routes>
-      
     </div>
   );
 }
