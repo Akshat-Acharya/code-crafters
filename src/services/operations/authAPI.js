@@ -92,8 +92,7 @@ export function login(email, password, navigate) {
         email,
         password,
       })
-      let nameimg =await fetch( `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`);
-console.log(nameimg)  
+
 
       console.log("LOGIN API RESPONSE............", response)
 
@@ -105,7 +104,7 @@ console.log(nameimg)
       dispatch(setToken(response.data.token))
       const userImage = await response.data?.user?.image
         ? response.data.user.image
-        :nameimg;
+        :`https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`;
       dispatch(setUser({ ...response.data.user, image: userImage }))
       
       localStorage.setItem("token", JSON.stringify(response.data.token))
