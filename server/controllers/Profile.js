@@ -15,7 +15,7 @@ exports.updateProfile = async (req, res) => {
       dateOfBirth = "",
       about = "",
       contactNumber = "",
-      gender = "",  
+      gender = "",
     } = req.body
     const id = req.user.id
 
@@ -71,7 +71,7 @@ exports.deleteAccount = async (req, res) => {
     // Delete Assosiated Profile with the User
     await Profile.findByIdAndDelete({
       _id: new mongoose.Types.ObjectId(user.additionalDetails),
-    }) 
+    })
     for (const courseId of user.courses) {
       await Course.findByIdAndUpdate(
         courseId,

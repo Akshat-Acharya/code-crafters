@@ -33,7 +33,7 @@ const UserSchema = new mongoose.Schema({
   courses: [
     {
       type: mongoose.Schema.ObjectId,
-      ref: "Courses",
+      ref: "Course",
     },
   ],
   image: {
