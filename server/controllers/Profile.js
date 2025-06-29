@@ -8,59 +8,90 @@ const mongoose = require("mongoose")
 const { convertSecondsToDuration } = require("../utils/secToDuration")
 // Method for updating a profile
 exports.updateProfile = async (req, res) => {
-  try {
-    const {
-      firstName = "",
-      lastName = "",
-      dateOfBirth = "",
-      about = "",
-      contactNumber = "",
-      gender = "",
-    } = req.body
-    const id = req.user.id
+    try {
+        const {
+            firstName = "",
+            lastName = "",
+            dateOfBirth = "",
+            about = "",
+            contactNumber = "",
+            gender = "",
+        } = req.body;
+        const id = req.user.id; // User ID from authentication
 
-    // Find the profile by id
-    const userDetails = await User.findById(id)
-    const profile = await Profile.findById(userDetails.additionalDetails)
+        // 1. Find the User document
+        const userDetails = await User.findById(id);
 
-    const user = await User.findByIdAndUpdate(id, {
-      firstName,
-      lastName,
-    })
-    await user.save()
+        if (!userDetails) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found.",
+            });
+        }
 
-    // Update the profile fields
-    profile.dateOfBirth = dateOfBirth
-    profile.about = about
-    profile.contactNumber = contactNumber
-    profile.gender = gender
+        // 2. Find or Create the Profile document
+        // This is the crucial change
+        let profile = null;
+        if (userDetails.additionalDetails) {
+            profile = await Profile.findById(userDetails.additionalDetails);
+        }
 
-    // Save the updated profile
-    await profile.save()
+        if (!profile) {
+            // If additionalDetails was null/undefined OR no profile found for that ID, create a new profile
+            profile = await Profile.create({
+                dateOfBirth,
+                about,
+                contactNumber,
+                gender,
+            });
+            // Link the new profile to the user
+            userDetails.additionalDetails = profile._id;
+            await userDetails.save(); // Save userDetails to update the additionalDetails field
+        } else {
+            // If profile exists, update its fields
+            profile.dateOfBirth = dateOfBirth;
+            profile.about = about;
+            profile.contactNumber = contactNumber;
+            profile.gender = gender;
+            await profile.save(); // Save the updated profile
+        }
 
-    // Find the updated user details
-    const updatedUserDetails = await User.findById(id)
-      .populate("additionalDetails")
-      .exec()
+        // 3. Update the User's first and last name
+        const user = await User.findByIdAndUpdate(
+            id,
+            {
+                firstName,
+                lastName,
+            },
+            { new: true } // { new: true } returns the updated document
+        );
+        // No need for await user.save() here if you use findByIdAndUpdate with {new: true}
+        // The above line already saves it. If you fetched it first and then modified, you'd need save().
 
-    return res.json({
-      success: true,
-      message: "Profile updated successfully",
-      updatedUserDetails,
-    })
-  } catch (error) {
-    console.log(error)
-    return res.status(500).json({
-      success: false,
-      error: error.message,
-    })
-  }
-}
+        // 4. Fetch the updated user details with populated profile
+        const updatedUserDetails = await User.findById(id)
+            .populate("additionalDetails")
+            .exec();
+
+        return res.json({
+            success: true,
+            message: "Profile updated successfully",
+            updatedUserDetails,
+        });
+
+    } catch (error) {
+        console.error("Error in updateProfile:", error); // Use console.error for errors
+        return res.status(500).json({
+            success: false,
+            error: error.message,
+        });
+    }
+};
 
 exports.deleteAccount = async (req, res) => {
   try {
     const id = req.user.id
-    console.log(id)
+    console.log(id) 
     const user = await User.findById({ _id: id })
     if (!user) {
       return res.status(404).json({

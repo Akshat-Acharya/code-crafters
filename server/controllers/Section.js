@@ -1,27 +1,25 @@
 const Section = require("../models/Section");
 const Course = require("../models/Courses");
 
+
 exports.createSection = async (req, res) => {
   try {
-    //data fetch
+    // Extract the required properties from the request body
+    const { sectionName, courseId } = req.body
 
-    const { sectionName, courseId } = req.body;
-
-    //data validation
+    // Validate the input
     if (!sectionName || !courseId) {
       return res.status(400).json({
         success: false,
-        message: "Missing any one of them",
-      });
+        message: "Missing required properties",
+      })
     }
 
-    //create section
+    // Create a new section with the given name
+    const newSection = await Section.create({ sectionName })
 
-    const newSection = await Section.create({ sectionName });
-
-    //update the course with section objectId
-
-    const updatedCourseDetails = await Course.findByIdAndUpdate(
+    // Add the new section to the course's content array
+    const updatedCourse = await Course.findByIdAndUpdate(
       courseId,
       {
         $push: {
@@ -29,22 +27,30 @@ exports.createSection = async (req, res) => {
         },
       },
       { new: true }
-    );
+    )
+      .populate({
+        path: "courseContent",
+        populate: {
+          path: "subSection",
+        },
+      })
+      .exec()
 
-    //return response
-    return res.status(200).json({
+    // Return the updated course object in the response
+    res.status(200).json({
       success: true,
-      message: "Course section created successfully",
-      updatedCourseDetails,
-    });
-  } catch (e) {
-    return res.status(500).json({
+      message: "Section created successfully",
+      updatedCourse,
+    })
+  } catch (error) {
+    // Handle errors
+    res.status(500).json({
       success: false,
-      message: "Something went wronge",
-      error: e.message,
-    });
+      message: "Internal server error",
+      error: error.message,
+    })
   }
-};
+}
 
 exports.updateSection = async (req, res) => {
   try {

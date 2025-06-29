@@ -20,12 +20,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Cart from './components/core/dashboard/Cart'
 import { ACCOUNT_TYPE } from "./utils/constants";
 import { useNavigate } from "react-router-dom";
-import AddCourse from "./components/core/AddCourse";
+import AddCourse from "./components/core/dashboard/AddCourse";
 
 function App() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  
+
   const { user } = useSelector((state) => state.profile)
   return (
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
@@ -80,7 +78,7 @@ function App() {
           <Dashboard />
           </PrivateRoute> 
           } >
-       <Route path="dashboard/my-profile" element={<MyProfile />} />
+        <Route path="dashboard/my-profile" element={<MyProfile />} />
       <Route path="dashboard/Settings" element={<Settings />} />
       {/* <Route path="dashboard/cart" element={<Cart />} />
       <Route path="dashboard/enrolled-courses" element={<EnrolledCourses/>}/> */}
@@ -100,8 +98,6 @@ function App() {
         )
       }
           </Route>
-       
-
         <Route path="*" element={<Error />} />
       </Routes>
     </div>

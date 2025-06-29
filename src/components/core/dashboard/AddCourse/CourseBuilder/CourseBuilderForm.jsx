@@ -8,13 +8,13 @@ import { useDispatch, useSelector } from "react-redux"
 import {
   createSection,
   updateSection,
-} from "../../../../services/operations/courseDetailAPI"
+} from "../../../../../services/operations/courseDetailAPI"
 import {
   setCourse,
   setEditCourse,
   setStep,
-} from "../../../../slices/courseSlice"
-import IconBtn from "../../../common/IconBtn"
+} from "../../../../../slices/courseSlice"
+import IconBtn from "../../../../common/IconBtn"
 import NestedView from "./NestedView"
 
 export default function CourseBuilderForm() {

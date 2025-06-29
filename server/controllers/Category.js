@@ -11,7 +11,7 @@ exports.createCategory = async (req, res) => {
         message: "All fields are required",
       });
     }
-    const categoryDetails = await Tag.create({
+    const categoryDetails = await Category.create({
       name: name,
       description: description,
     });
