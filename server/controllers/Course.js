@@ -237,21 +237,21 @@ exports.getCourseDetails = async (req, res) => {
     const courseDetails = await Course.findOne({
       _id: courseId,
     })
-      .populate({
-        path: "instructor",
-        populate: {
-          path: "additionalDetails",
-        },
-      })
-      .populate("category")
-      .populate("ratingAndReviews")
-      .populate({
-        path: "courseContent",
-        populate: {
-          path: "subSection",
-          select: "-videoUrl",
-        },
-      })
+      // .populate({
+      //   path: "instructor",
+      //   populate: {
+      //     path: "additionalDetails",
+      //   },
+      // })
+      // .populate("category")
+      // .populate("ratingAndReviews")
+      // .populate({
+      //   path: "courseContent",
+      //   populate: {
+      //     path: "subSection",
+      //     select: "-videoUrl",
+      //   },
+      // })
       .exec()
 
     if (!courseDetails) {
@@ -287,11 +287,13 @@ exports.getCourseDetails = async (req, res) => {
     })
   }
 }
+
 exports.getFullCourseDetails = async (req, res) => {
   try {
     const { courseId } = req.body
+    console.log("Course Id :",courseId)
     const userId = req.user.id
-    const courseDetails = await Course.findOne({
+    const courseDetails = await Course.findOne({ 
       _id: courseId,
     })
       .populate({
@@ -309,6 +311,7 @@ exports.getFullCourseDetails = async (req, res) => {
         },
       })
       .exec()
+      console.log("After course Detail ",courseDetails)
 
     let courseProgressCount = await CourseProgress.findOne({
       courseID: courseId,
