@@ -20,7 +20,6 @@ export default function MyCourses() {
       }
     }
     fetchCourses()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

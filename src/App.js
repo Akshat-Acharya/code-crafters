@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import AddCourse from "./components/core/dashboard/AddCourse";
 import MyCourses from "./components/core/dashboard/MyCourses";
 import EditCourse from "./components/core/dashboard/EditCourse";
+import Catalog from "./pages/Catalog";
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="catalog/:catalogName" element={<Catalog />} />
         <Route
           path="/login"
           element={

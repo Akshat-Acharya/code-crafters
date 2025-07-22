@@ -237,21 +237,21 @@ exports.getCourseDetails = async (req, res) => {
     const courseDetails = await Course.findOne({
       _id: courseId,
     })
-      // .populate({
-      //   path: "instructor",
-      //   populate: {
-      //     path: "additionalDetails",
-      //   },
-      // })
-      // .populate("category")
-      // .populate("ratingAndReviews")
-      // .populate({
-      //   path: "courseContent",
-      //   populate: {
-      //     path: "subSection",
-      //     select: "-videoUrl",
-      //   },
-      // })
+      .populate({
+        path: "instructor",
+        populate: {
+          path: "additionalDetails",
+        },
+      })
+      .populate("category")
+      .populate("ratingAndReviews")   
+      .populate({
+        path: "courseContent",
+        populate: {
+          path: "subSection",
+          select: "-videoUrl",
+        },
+      })
       .exec()
 
     if (!courseDetails) {
