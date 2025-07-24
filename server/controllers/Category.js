@@ -46,7 +46,9 @@ exports.showAllCategories = async (req, res) => {
 };
 
 //categoryPage handler function
-
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max)
+}
 exports.categoryPageDetails = async (req, res) => {
   try {
     const { categoryId } = req.body
