@@ -6,6 +6,7 @@ const User = require("../models/User")
 const { uploadImageToCloudinary } = require("../utils/imageUploader")
 const CourseProgress = require("../models/CourseProgress")
 const { convertSecondsToDuration } = require("../utils/secToDuration")
+const { default: mongoose } = require("mongoose")
 // Function to create a new course
 exports.createCourse = async (req, res) => {
   try {
@@ -433,3 +434,64 @@ exports.deleteCourse = async (req, res) => {
     })
   }
 }
+
+exports.enrollInCourse = async (req, res) => {
+  try {
+    const { courseId } = req.body;
+    const userId = req.user.id;
+
+    // 1. VALIDATE THE COURSE AND USER
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ success: false, message: "Course not found." });
+    }
+
+    if (course.studentsEnroled.includes(new mongoose.Types.ObjectId(userId))) {
+      return res.status(400).json({ success: false, message: "You are already enrolled." });
+    }
+
+    // 2. CREATE THE COURSE PROGRESS DOCUMENT
+    const courseProgress = await CourseProgress.create({
+      courseID: courseId,
+      userId: userId,
+      completedVideos: [],
+    });
+
+    // 3. UPDATE THE USER AND COURSE MODELS
+    // Add the new course progress ID to the user's progress array
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $push: {
+          courses: courseId,
+          courseProgress: courseProgress._id, // Push to the array
+        },
+      },
+      { new: true }
+    );
+
+    // Add the student to the course's enrolled list
+    await Course.findByIdAndUpdate(
+      courseId,
+      {
+        $push: { studentsEnroled: userId },
+      },
+      { new: true }
+    );
+
+    // 4. RETURN SUCCESS RESPONSE
+    return res.status(200).json({
+      success: true,
+      message: "Successfully enrolled in the course!",
+      user: updatedUser,
+    });
+
+  } catch (error) {
+    console.error("ENROLLMENT_ERROR: ", error);
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while enrolling in the course.",
+      error: error.message,
+    });
+  }
+};

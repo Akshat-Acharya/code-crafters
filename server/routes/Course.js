@@ -13,6 +13,7 @@ const {
   editCourse,
   getInstructorCourses,
   deleteCourse,
+  enrollInCourse,
 } = require("../controllers/Course")
 
 // Tags Controllers Import
@@ -81,6 +82,7 @@ router.post("/getCourseDetails", getCourseDetails)
 router.post("/getFullCourseDetails", auth, getFullCourseDetails)
 // To Update Course Progress
 router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress)
+router.post('/enrollInCourse',auth,isStudent,enrollInCourse)
 // To get Course Progress
 // router.post("/getProgressPercentage", auth, isStudent, getProgressPercentage)
 // Delete a Course

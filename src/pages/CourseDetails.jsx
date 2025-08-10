@@ -12,8 +12,8 @@ import RatingStars from "../components/common/RatingStars"
 import CourseAccordionBar from "../components/core/Course/CourseAccordionBar"
 import CourseDetailsCard from "../components/core/Course/CourseDetailsCard"
 import { formatDate } from "../services/formatDate"
-import { fetchCourseDetails } from "../services/operations/courseDetailAPI"
-import { BuyCourse } from "../services/operations/studentFeaturesAPI"
+import { fetchCourseDetails,enrollCourse } from "../services/operations/courseDetailAPI"
+// import { BuyCourse } from "../services/operations/studentFeaturesAPI"
 import GetAvgRating from "../utils/avgRating"
 import Error from "./Error"
 
@@ -102,11 +102,36 @@ function CourseDetails() {
     createdAt,
   } = response.data?.courseDetails
 
-  const handleBuyCourse = () => {
+  // const handleBuyCourse = () => {
+  //   if (token) {
+  //     enrollCourse(token, [courseId], user, navigate, dispatch)
+  //     return
+  //   }
+  //   setConfirmationModal({
+  //     text1: "You are not logged in!",
+  //     text2: "Please login to Purchase Course.",
+  //     btn1Text: "Login",
+  //     btn2Text: "Cancel",
+  //     btn1Handler: () => navigate("/login"),
+  //     btn2Handler: () => setConfirmationModal(null),
+  //   })
+  // }
+
+  const handleBuyCourse = async () => {
+    // If the user is logged in, enroll them in the course
     if (token) {
-      BuyCourse(token, [courseId], user, navigate, dispatch)
-      return
+      // The data object should match what the backend controller expects in req.body
+      const data = { courseId: courseId };
+      const result = await enrollCourse(data, token);
+
+      // After the API call is complete, navigate to the enrolled courses page if successful
+      if (result) {
+        navigate("/dashboard/enrolled-courses");
+      }
+      return;
     }
+
+    // If the user is not logged in, show a confirmation modal
     setConfirmationModal({
       text1: "You are not logged in!",
       text2: "Please login to Purchase Course.",
@@ -114,9 +139,8 @@ function CourseDetails() {
       btn2Text: "Cancel",
       btn1Handler: () => navigate("/login"),
       btn2Handler: () => setConfirmationModal(null),
-    })
-  }
-
+    });
+  };
   if (paymentLoading) {
     // console.log("payment loading")
     return (
