@@ -74,7 +74,7 @@ exports.getAverageRating = async (req, res) => {
     //get course id
     const courseId = req.body.courseId;
     //calculate average rating
-    const result = await RatingAndReviewe.aggregate([
+    const result = await RatingAndReview.aggregate([
       {
         $match: {
           course: new mongoose.Types.ObjectId(courseId),
@@ -113,7 +113,7 @@ exports.getAverageRating = async (req, res) => {
 
 exports.getAllRatingReview = async (req, res) => {
   try {
-    const allReviews = await RatingAndReviewe.find({})
+    const allReviews = await RatingAndReview.find({})
       .sort({ rating: "desc" })
       .populate({ path: "user", select: "firstName lastName email image" })
       .populate({ path: "course", select: "courseName" })
