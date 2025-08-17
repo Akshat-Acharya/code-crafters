@@ -23,10 +23,14 @@ database.connect();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow requests from frontend
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-  credentials: true, // If cookies or authorization headers are used
+  origin: [
+    "http://localhost:3000",              // local React dev
+    "https://code-crafters-theta.vercel.app" // deployed frontend
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
 }));
+
 
 app.use(
   fileUpload({
